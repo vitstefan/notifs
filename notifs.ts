@@ -4,7 +4,7 @@ enum NTheme { Light, Dark, }
 /** Notification content type - differs in content color */
 enum NContentType { Default, Success, Error, Warning, Info, }
 /** Position of notification (with BottomRightCorner consider setting Regime to JustOne or Clear) */
-enum NPosition { WholeScreen, RightSide, BottomRightCorner, }
+enum NPosition { WholeScreen, RightSide, BottomSide, BottomRightCorner, }
 /** Regime - JustOne (shows only last notification), Dominant (shows all notifications, but the last one is more dominant), SideBySide (shows all notifications), Clear (shown only last and clears history) */
 enum NRegime { JustOne, Dominant, SideBySide, Clear, }
 /** Lifespan of notification, when TillClosed set, close button will appear */
@@ -18,7 +18,7 @@ enum NLifespan { OneSecond, TwoSeconds, ThreeSeconds, FourSeconds, FiveSeconds, 
  * @param {string} text Content text of notification.
  * @param {NTheme} theme Theme of notification.
  * @param {NContentType} contentType Differentiates content text.
- * @param {NPosition} position Whole screen / Right side / Bottom right corner.
+ * @param {NPosition} position Whole screen / Right side / Bottom side / Bottom right corner.
  * @param {NRegime} regime Option to show just the last one or the other notifications too.
  * @param {NLifespan} lifespan Lifespan of notification, could disappear after few seconds or stay there till user dismisses it.
  */
@@ -46,6 +46,9 @@ function buildNotification(text: string,
             break;
         case NPosition.RightSide:
             getCanvas().classList.add('notifs-canvas-right-side');
+            break;
+        case NPosition.BottomSide:
+            getCanvas().classList.add('notifs-canvas-bottom-side');
             break;
         default:
             getCanvas().classList.add('notifs-canvas-bottom-right-corner');
@@ -148,7 +151,7 @@ function removeCloseButton(): void {
 }
 
 function hide(): void {
-    getCanvas().classList.remove('notifs-canvas-whole-screen', 'notifs-canvas-right-side', 'notifs-canvas-bottom-right-corner');
+    getCanvas().classList.remove('notifs-canvas-whole-screen', 'notifs-canvas-right-side', 'notifs-canvas-bottom-side', 'notifs-canvas-bottom-right-corner');
     getCanvas().classList.add('notifs-canvas-hidden');
     getCanvas().removeEventListener('click', hide);
 

@@ -58,6 +58,19 @@
     max-height: 100vh;
 }
 
+.notifs-canvas-bottom-side {
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 10em;
+    transition: width 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.notifs-canvas-bottom-side .notifs-content {
+    max-width: 100vw;
+    max-height: 10em;
+}
+
 .notifs-canvas-bottom-right-corner {
     justify-content: center;
     align-items: center;
