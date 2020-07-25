@@ -1,0 +1,119 @@
+/* notifs styles */
+
+:root {
+    --notifs-background-color: rgba(255, 255, 255, 0.9);
+    --notifs-content-color: #000000;
+    --notifs-content-size: 1.5em;
+    --notifs-content-opaque-color: rgba(177, 177, 177, 0.5);
+    --notifs-content-type-success-color: #2eb74d;
+    --notifs-content-type-error-color: #c43b48;
+    --notifs-content-type-warning-color: #dba810;
+    --notifs-content-type-info-color: #38a2b3;
+}
+
+.notifs-close-button {
+    font-size: xxx-large;
+    cursor: pointer;
+}
+
+.notifs-canvas {
+    display: flex;
+    right: 0;
+    bottom: 0;
+    background-color: var(--notifs-background-color);
+    position: fixed;
+    overflow-x: hidden;
+    z-index: 9999;
+}
+
+.notifs-canvas-hidden {
+    width: 0;
+    height: 0;
+    transition: height 0s linear 0.5s, width 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.notifs-canvas-whole-screen {
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    transition: width 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.notifs-canvas-whole-screen .notifs-content {
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.notifs-canvas-right-side {
+    justify-content: center;
+    align-items: center;
+    width: 20em;
+    height: 100vh;
+    transition: width 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.notifs-canvas-right-side .notifs-content {
+    max-width: 20em;
+    max-height: 100vh;
+}
+
+.notifs-canvas-bottom-right-corner {
+    justify-content: center;
+    align-items: center;
+    width: 20em;
+    height: 10em;
+    transition: width 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.notifs-canvas-bottom-right-corner .notifs-content {
+    max-width: 20em;
+    max-height: 10em;
+}
+
+.notifs-content {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    margin: 5%;
+    padding: unset;
+    font-size: var(--notifs-content-size);
+    color: var(--notifs-content-color);
+}
+
+.notifs-content-type-1 {
+    color: var(--notifs-content-type-success-color);
+}
+
+.notifs-content-type-2 {
+    color: var(--notifs-content-type-error-color);
+}
+
+.notifs-content-type-3 {
+    color: var(--notifs-content-type-warning-color);
+}
+
+.notifs-content-type-4 {
+    color: var(--notifs-content-type-info-color);
+}
+
+.notifs-content-hidden {
+    display: none;
+}
+
+.notifs-content li {
+    list-style: none;
+    text-align: center;
+}
+
+.notifs-content li:not(:last-child) {
+    padding-bottom: 3%;
+}
+
+.notifs-hidden {
+    display: none;
+}
+
+.notifs-opaque {
+    color: var(--notifs-content-opaque-color);
+}

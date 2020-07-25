@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifs</title>
+    <style>
+        @import url('./main.css');
+        @import url('./notifs.css');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css');
+    </style>
+    <!-- js for notifs -->
+    <script type="text/javascript" defer src="notifs.js"></script>
+</head>
+
+<body>
+    <!-- Add this html snippet together with notifs.css and notifs.ts/js files to make notifs work -->
+    <div class="notifs-canvas notifs-canvas-hidden">
+        <ol class="notifs-content notifs-content-hidden">
+        </ol>
+    </div>
+    <!-- end of notifs snippet -->
+
+    <div id="main">
+        <section class="container-1">
+            <h1>Notifs</h1>
+            <h2>Clean, yet beautiful notifications in your website</h2>
+
+            <button onclick="createNotification()">Show notification</button>
+        </section>
+
+        <input id="input-content" type="text" value="Your notification text" placeholder="Your notification text">
+
+        <section class="container-2">
+            <label for="select-theme">Theme</label>
+            <div class="select-style">
+                <select id="select-theme" name="select-theme">
+                    <option value="0">Light</option>
+                    <option value="1" selected>Dark</option>
+                </select>
+            </div>
+
+            <label for="select-content-type">Content type</label>
+            <div class="select-style">
+                <select id="select-content-type" name="select-content-type">
+                    <option value="0" selected>Default</option>
+                    <option value="1">Success</option>
+                    <option value="2">Error</option>
+                    <option value="3">Warning</option>
+                    <option value="4">Info</option>
+                </select>
+            </div>
+
+            <label for="select-position">Position</label>
+            <div class="select-style">
+                <select id="select-position" name="select-position">
+                    <option value="0" selected>Whole screen</option>
+                    <option value="1">Right side</option>
+                    <option value="2">Bottom right corner</option>
+                </select>
+            </div>
+
+            <label for="select-regime">Regime</label>
+            <div class="select-style">
+                <select id="select-regime" name="select-regime">
+                    <option value="0" selected>Just one</option>
+                    <option value="1">Dominant</option>
+                    <option value="2">Side by side</option>
+                    <option value="3">Clear</option>
+                </select>
+            </div>
+
+            <label for="select-lifespan">Lifespan</label>
+            <div class="select-style">
+                <select id="select-lifespan" name="select-lifespan">
+                    <option value="0">One second</option>
+                    <option value="1" selected>Two seconds</option>
+                    <option value="2">Three seconds</option>
+                    <option value="3">Four seconds</option>
+                    <option value="4">Five seconds</option>
+                    <option value="5">Till close</option>
+                </select>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
