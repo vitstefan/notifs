@@ -1,7 +1,7 @@
 # Notifs
 Clean, yet beautiful notifications to any website. HTML, CSS, JS (TS) plug-in.
 
-Made as small HTML snippet with CSS dependency and TypeScript code to display notification. No other dependencies.
+Made as small CSS file with TypeScript code to display notification. No other dependencies.
 
 Show simple notifications to your users with useful options. Choose from light/dark theme, distinguish content type with text color, select position of notification, pick regime and lifespan.
 
@@ -19,16 +19,7 @@ For options explanations and more see enum values in the [code](./notifs.ts).
 
 ## Import to your project
 
-Copy [lib directory](./lib) with .html file as well for simple import. Or copy just this HTML snippet 
-
-```html
-<div class="notifs-canvas notifs-canvas-hidden">
-    <ol class="notifs-content notifs-content-hidden">
-    </ol>
-</div>
-```
-
-to your HTML tag body with right imports to CSS and JS files that you can get from [lib directory](./lib) as well:
+Add these imports to CSS and JS files that you can get from [lib directory](./lib):
 
 ```html
 <link rel="stylesheet" href="./lib/notifs.css">
