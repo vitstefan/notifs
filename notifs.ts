@@ -13,6 +13,22 @@ enum NLifespan { OneSecond, TwoSeconds, ThreeSeconds, FourSeconds, FiveSeconds, 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /**
+ * Necessary to call to make notifs work (is called below)
+ */
+function initNotifs(): void {
+    let olNotifications = document.createElement('ol');
+    olNotifications.classList.add('notifs-content', 'notifs-content-hidden');
+    let divNotifications = document.createElement('div');
+    divNotifications.classList.add('notifs-canvas', 'notifs-canvas-hidden');
+    divNotifications.appendChild(olNotifications);
+    //append necessary notifs element to body
+    document.getElementsByTagName('body')[0].appendChild(divNotifications);
+}
+initNotifs(); //calling to init notifs
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/**
  * Call this function with desired parameters to build notification.
  * 
  * @param {string} text Content text of notification.
@@ -145,7 +161,7 @@ function addCloseButton(): void {
 }
 
 function removeCloseButton(): void {
-    if ((getContent().lastChild as HTMLElement).id === 'notifs-close-button') {
+    if (getContent().lastChild !== null && ((getContent().lastChild as HTMLElement).id === 'notifs-close-button')) {
         getContent().removeChild(getContent().lastChild);
     }
 }

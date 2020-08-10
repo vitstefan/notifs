@@ -42,6 +42,20 @@ var NLifespan;
 })(NLifespan || (NLifespan = {}));
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/
 /**
+ * Necessary to call to make notifs work (is called below)
+ */
+function initNotifs() {
+    var olNotifications = document.createElement('ol');
+    olNotifications.classList.add('notifs-content', 'notifs-content-hidden');
+    var divNotifications = document.createElement('div');
+    divNotifications.classList.add('notifs-canvas', 'notifs-canvas-hidden');
+    divNotifications.appendChild(olNotifications);
+    //append necessary notifs element to body
+    document.getElementsByTagName('body')[0].appendChild(divNotifications);
+}
+initNotifs(); //calling to init notifs
+/*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+/**
  * Call this function with desired parameters to build notification.
  *
  * @param {string} text Content text of notification.
@@ -161,7 +175,7 @@ function addCloseButton() {
     getContent().appendChild(closeButton);
 }
 function removeCloseButton() {
-    if (getContent().lastChild.id === 'notifs-close-button') {
+    if (getContent().lastChild !== null && (getContent().lastChild.id === 'notifs-close-button')) {
         getContent().removeChild(getContent().lastChild);
     }
 }
