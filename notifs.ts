@@ -8,7 +8,11 @@ enum NPosition { WholeScreen, RightSide, BottomSide, BottomRightCorner, }
 /** Regime - JustOne (shows only last notification), Dominant (shows all notifications, but the last one is more dominant), SideBySide (shows all notifications), Clear (shown only last and clears history) */
 enum NRegime { JustOne, Dominant, SideBySide, Clear, }
 /** Lifespan of notification, when TillClosed set, close button will appear */
-enum NLifespan { OneSecond, TwoSeconds, ThreeSeconds, FourSeconds, FiveSeconds, TillClosed, }
+enum NLifespan {
+    OneSecond, TwoSeconds, ThreeSeconds, FourSeconds, FiveSeconds,
+    TillClosed, TillClosedWithFiveSecondsTimeout, TillClosedWithEightSecondsTimeout,
+    TillClosedWholeCanvas, TillClosedWithFiveSecondsTimeoutWholeCanvas, TillClosedWithEightSecondsTimeoutWholeCanvas,
+}
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -29,6 +33,12 @@ initNotifs(); //calling to init notifs
 /*----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 /**
+ * Contains timeout function to hide notifs (if defined).
+ * Call clearTimeout(_notifsTimeout) to prevent hiding => used for overriding timeout when showing new notifs while another one is still displayed.
+ */
+let _notifsTimeout;
+
+/**
  * Call this function with desired parameters to build notification.
  * 
  * @param {string} text Content text of notification.
@@ -38,7 +48,8 @@ initNotifs(); //calling to init notifs
  * @param {NRegime} regime Option to show just the last one or the other notifications too.
  * @param {NLifespan} lifespan Lifespan of notification, could disappear after few seconds or stay there till user dismisses it.
  */
-function buildNotification(text: string,
+function buildNotification(
+    text: string,
     theme: NTheme = NTheme.Dark,
     contentType: NContentType = NContentType.Default,
     position: NPosition = NPosition.BottomRightCorner,
@@ -47,6 +58,15 @@ function buildNotification(text: string,
 
     //remove close button
     removeCloseButton();
+
+    //remove hide event from the canvas
+    getCanvas().removeEventListener('click', hide);
+    getCanvas().classList.remove('cursor-pointer');
+
+    //clear timeout (prevent from hiding too early) => set new one below
+    if (_notifsTimeout) {
+        clearTimeout(_notifsTimeout);
+    }
 
     //theme
     document.documentElement.style.setProperty('--notifs-background-color', theme === NTheme.Dark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.9)');
@@ -94,7 +114,19 @@ function buildNotification(text: string,
     addNotification(text, contentType);
 
     //lifespan
-    if (lifespan !== NLifespan.TillClosed) {
+    if (lifespan === NLifespan.TillClosed
+        || lifespan === NLifespan.TillClosedWithFiveSecondsTimeout
+        || lifespan === NLifespan.TillClosedWithEightSecondsTimeout) {
+        addCloseButton();
+    } else if (lifespan === NLifespan.TillClosedWholeCanvas
+        || lifespan === NLifespan.TillClosedWithFiveSecondsTimeoutWholeCanvas
+        || lifespan === NLifespan.TillClosedWithEightSecondsTimeoutWholeCanvas) {
+        addCloseButton();
+        getCanvas().addEventListener('click', hide);
+        getCanvas().classList.add('cursor-pointer');
+    }
+
+    if (lifespan !== NLifespan.TillClosed && lifespan !== NLifespan.TillClosedWholeCanvas) {
         let timeout = 0;
         switch (lifespan) {
             case NLifespan.TwoSeconds:
@@ -107,17 +139,21 @@ function buildNotification(text: string,
                 timeout = 4000;
                 break;
             case NLifespan.FiveSeconds:
+            case NLifespan.TillClosedWithFiveSecondsTimeout:
+            case NLifespan.TillClosedWithFiveSecondsTimeoutWholeCanvas:
                 timeout = 5000;
+                break;
+            case NLifespan.TillClosedWithEightSecondsTimeout:
+            case NLifespan.TillClosedWithEightSecondsTimeoutWholeCanvas:
+                timeout = 8000;
                 break;
             default:
                 timeout = 1000;
                 break;
         }
-        setTimeout(() => {
+        _notifsTimeout = setTimeout(() => {
             hide();
         }, timeout);
-    } else {
-        addCloseButton();
     }
 }
 
@@ -155,7 +191,7 @@ function addCloseButton(): void {
     let closeButton = document.createElement('li');
     closeButton.innerHTML = '&times;';
     closeButton.id = 'notifs-close-button';
-    closeButton.classList.add('notifs-close-button');
+    closeButton.classList.add('notifs-close-button', 'cursor-pointer');
     closeButton.addEventListener('click', hide);
     getContent().appendChild(closeButton);
 }

@@ -13,6 +13,9 @@
 
 .notifs-close-button {
     font-size: xxx-large;
+}
+
+.cursor-pointer {
     cursor: pointer;
 }
 
